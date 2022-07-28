@@ -1,58 +1,109 @@
-set vsvimcaret=70			" Настройка спецефичная только для VsVim
+set vsvimcaret=70		
 
-set relativenumber			" Нумерация строк относительно курсора
-set number					" Показывает номер текушей строки (без это будет всегда ноль)
-set scrolloff=4				" Скорл экрана начниается на 4 строки от края экрана
-set clipboard=unnamed		" Буфер обмена идет в общий регистр, позволяет копипастить из других прог
+set relativenumber		
+set number				
+set scrolloff=5			
+set clipboard=unnamed	
 
-set ignorecase				" Игнорирование регистра при поиске
-set smartcase				" Регистр учитывается только когда в поиске есть заглавные буквы
-set hlsearch				" Подсвечивает поиск
-set incsearch				" Сразу же перемешается на слово которое находиться в процессе поиска
+set ignorecase			
+set smartcase			
+set hlsearch			
+set incsearch			
 
-
+let mapleader=" "
 
 " General mappings
-nmap 0 ^
-nmap $ g_
-nmap <Leader>; $a;<ESC>
-nnoremap gg gg:vsc Edit.NextMethod<CR>				
+nnoremap $ g_
+nnoremap H ^
+vnoremap H ^
+nnoremap L $
+vnoremap L $
+nnoremap Q @q
+nnoremap Y y$
+
+nnoremap gg gg:vsc Edit.NextMethod<CR>
 nnoremap G G:vsc Edit.PreviousMethod<CR>
-nmap <C-S> :vsc Edit.RemoveAndSort<CR>:w<CR>
-imap <C-S> <ESC>:vsc Edit.RemoveAndSort<CR>:w<CR>
-nmap <F9> :source c:\Users\Grig\.vimrc<CR>
+nnoremap <C-S> :vsc Edit.RemoveAndSort<CR>:w<CR>
+inoremap <C-S> <ESC>:vsc Edit.RemoveAndSort<CR>:w<CR>
+nnoremap <F9> :source c:\Users\User\.vimrc<CR>
+
+nnoremap <Leader>l :noh<CR>
+
+" Macros
+nnoremap <Leader>; g_a;<ESC>
+nnoremap <Leader>{ o{<CR>
+
 
 " Code navigation
-nmap <C-O> :vsc View.NavigateBackward<CR>
-nmap <C-I> :vsc View.NavigateForward<CR>
-nmap <C-]> :vsc Edit.GoToDefinition<CR>
-nmap <C-J> :vsc Edit.NextMethod<CR>
-vmap <C-J> :vsc Edit.NextMethod<CR>
-nmap <C-K> :vsc Edit.PreviousMethod<CR>
-vmap <C-K> :vsc Edit.PreviousMethod<CR>
+nnoremap <C-O> :vsc View.NavigateBackward<CR>
+nnoremap <C-I> :vsc View.NavigateForward<CR>
 
-" Tabs manipulation
-nmap <C-H> :vsc Window.PreviousTab<CR>
-nmap <C-L> :vsc Window.NextTab<CR>
-nmap <C-W> :vsc Window.CloseDocumentWindow<CR>
+nnoremap <C-]> :vsc Edit.GoToDefinition<CR>
+nnoremap gi :vsc Edit.GoToImplementation<CR>
+
+nnoremap <C-J> :vsc Edit.NextMethod<CR>jk
+vnoremap <C-J> :vsc Edit.NextMethod<CR>jk
+nnoremap <C-K> :vsc Edit.PreviousMethod<CR>kj
+vnoremap <C-K> :vsc Edit.PreviousMethod<CR>kj
+
+nnoremap <Leader>jj :let @b=@/<CR>/^\s*\({\|}\)<CR>:let @/=@b<CR>:noh<CR>w
+nnoremap <Leader>kk :let @b=@/<CR>?^\s*\({\|}\)<CR>:let @/=@b<CR>:noh<CR>w
+
+nnoremap <Leader>jv :let @b=@/<CR>/^\s*var\s<CR>:let @/=@b<CR>:noh<CR>ww
+nnoremap <Leader>kv :let @b=@/<CR>?^\s*var\s<CR>:let @/=@b<CR>:noh<CR>ww
+
+nnoremap <Leader>ji :let @b=@/<CR>/^\s*\(if\s*(\|else\s*\)<CR>:let @/=@b<CR>:noh<CR>w
+nnoremap <Leader>ki :let @b=@/<CR>?^\s*\(if\s*(\|else\s*\)<CR>:let @/=@b<CR>:noh<CR>w
+
+nnoremap <Leader>jf :let @b=@/<CR>/^\s*\(for\s*(\|foreach\s*\)<CR>:let @/=@b<CR>:noh<CR>w
+nnoremap <Leader>kf :let @b=@/<CR>?^\s*\(for\s*(\|foreach\s*\)<CR>:let @/=@b<CR>:noh<CR>w
+
+
+" Project navigation
+nnoremap <C-H> :vsc Window.PreviousTab<CR>
+nnoremap <C-L> :vsc Window.NextTab<CR>
+nnoremap <Leader>tk :vsc Window.KeepTabOpen<CR>
+nnoremap <Leader>to :tabo<CR>
+nnoremap <Leader>ff :vsc Edit.GoToAll<CR>
+
 
 " SoultionExplorer
-nmap <Leader>S :vsc View.SolutionExplorer<CR>
-nmap <Leader>sf :vsc Window.SolutionExplorerSearch<CR>
-nmap <Leader>ss :vsc SolutionExplorer.SyncWithActiveDocument<CR>
+nnoremap <Leader>S :vsc View.SolutionExplorer<CR>
+nnoremap <Leader>sf :vsc Window.SolutionExplorerSearch<CR>
+nnoremap <Leader>ss :vsc SolutionExplorer.SyncWithActiveDocument<CR>
+
 
 " ErrorList
-nmap <Leader>E :vsc View.ErrorList<CR>
-nmap <Leader>en :vsc View.NextError<CR>
-nmap <Leader>eb :vsc View.PreviousError<CR>
+nnoremap <Leader>E :vsc View.ErrorList<CR>
+nnoremap <Leader>en :vsc View.NextError<CR>
+nnoremap <Leader>eb :vsc View.PreviousError<CR>
 
-" TestExplorer
-nmap <Leader>T :vsc TestExplorer.ShowTestExplorer<CR>
-nmap <Leader>ta :vsc TestExplorer.RunAllTests<CR>
-nmap <Leader>tf :vsc TestExplorer.RunFailedTests<CR>
-nmap <Leader>tl :vsc TestExplorer.RepeatLastRun<CR>
-nmap <Leader>tL :vsc TestExplorer.DebugLastRun<CR>
+
+" Info
+nnoremap <Leader>i :vsc Edit.ParameterInfo<CR>
+nnoremap <Leader>I :vsc Edit.QuickInfo<CR>
+
+
+" Refactor
+nnoremap <Leader>rr :vsc Refactor.Rename<CR>
+nnoremap <Leader>rp :vsc Refactor.RemoveParameters<CR>
+
 
 " Debug
-nmap <Leader>B :vsc Debug.ToggleBreakpoint<CR>
-nmap <Leader>bc :vsc Debug.DeleteAllBreakpoints<CR>
+nnoremap <Leader>dr :vsc Debug.Start<CR>
+nnoremap <Leader>ds :vsc Debug.StopDebugging<CR>
+nnoremap <Leader>dR :vsc Debug.Restart<CR>
+
+nnoremap <Leader>dl :vsc Debug.StepOver<CR>
+nnoremap <Leader>dj :vsc Debug.StepInto<CR>
+nnoremap <Leader>dk :vsc Debug.StepOut<CR>
+nnoremap <Leader>dh :vsc Debug.RunToCursor<CR>
+
+nnoremap <Leader>dtt :vsc TestExplorer.ShowTestExplorer<CR>
+nnoremap <Leader>dta :vsc TestExplorer.RunAllTests<CR>
+nnoremap <Leader>dtf :vsc TestExplorer.RunFailedTests<CR>
+nnoremap <Leader>dtl :vsc TestExplorer.RepeatLastRun<CR>
+nnoremap <Leader>dtL :vsc TestExplorer.DebugLastRun<CR>
+
+nnoremap <Leader>db :vsc Debug.ToggleBreakpoint<CR>
+nnoremap <Leader>dc :vsc Debug.DeleteAllBreakpoints<CR>
