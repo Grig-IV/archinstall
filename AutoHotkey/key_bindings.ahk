@@ -8,15 +8,11 @@ $Ctrl::Esc
 LShift & RShift::SetCapsLockState, % GetKeyState("CapsLock", "T")? "Off":"On"
 return
 
-!j::Send {Down}
-!k::Send {Up}
-!h::Send {Left}
-!l::Send {Right}
-return
-
-AppsKey::return
-AppsKey & j::Send {Down}
-AppsKey & k::Send {Up}
-AppsKey & h::Send {Left}
-AppsKey & l::Send {Right}
+#if GetKeyState("Capslock", "P") && GetKeyState("Space", "P")
+Capslock::return
+Space::return
+j::Send {Down}
+k::Send {Up}
+h::Send {Left}
+l::Send {Right}
 return

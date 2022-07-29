@@ -13,7 +13,6 @@ set incsearch
 let mapleader=" "
 
 " General mappings
-nnoremap $ g_
 nnoremap H ^
 vnoremap H ^
 nnoremap L $
@@ -38,7 +37,7 @@ nnoremap <Leader>{ o{<CR>
 nnoremap <C-O> :vsc View.NavigateBackward<CR>
 nnoremap <C-I> :vsc View.NavigateForward<CR>
 
-nnoremap <C-]> :vsc Edit.GoToDefinition<CR>
+nnoremap gd :vsc Edit.GoToDefinition<CR>
 nnoremap gi :vsc Edit.GoToImplementation<CR>
 
 nnoremap <C-J> :vsc Edit.NextMethod<CR>jk
@@ -80,8 +79,8 @@ nnoremap <Leader>eb :vsc View.PreviousError<CR>
 
 
 " Info
-nnoremap <Leader>i :vsc Edit.ParameterInfo<CR>
-nnoremap <Leader>I :vsc Edit.QuickInfo<CR>
+nnoremap <Leader>i :vsc Edit.QuickInfo<CR>
+nnoremap <Leader>I :vsc Edit.ParameterInfo<CR>
 
 
 " Refactor
@@ -89,7 +88,9 @@ nnoremap <Leader>rr :vsc Refactor.Rename<CR>
 nnoremap <Leader>rp :vsc Refactor.RemoveParameters<CR>
 
 
-" Debug
+" Build, Run, Debug, Tests
+nnoremap <Leader>bb :vsc Build.BuildSolution<CR>
+
 nnoremap <Leader>dr :vsc Debug.Start<CR>
 nnoremap <Leader>ds :vsc Debug.StopDebugging<CR>
 nnoremap <Leader>dR :vsc Debug.Restart<CR>
