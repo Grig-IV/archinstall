@@ -30,6 +30,7 @@ init_pacman() {
 init_dotfiles() {
   configs=$(realpath $(dirname $0))
   install_pkg stow
+  rm $HOME/.bash_profile
   stow -v -t $HOME -d $configs home
   stow -v -t /etc -d $configs etc
 }
