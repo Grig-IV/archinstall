@@ -1,6 +1,7 @@
 #!/bin/bash
 
-SOFTWARE_PATH="$HOME/software"
+HOME_G="/home/grig"
+SOFTWARE_PATH="$HOME_G/software"
 
 verify_root() {
   if [ "$EUID" -ne 0 ]; then
@@ -10,7 +11,7 @@ verify_root() {
 }
 
 init_default_folders() {
-  cd $HOME
+  cd $HOME_G
   mkdir -p software
   mkdir -p .config
 }
@@ -25,14 +26,18 @@ init_pacman() {
   install_pkg git
   install_pkg curl
   install_pkg wget
+  install_pkg unzip
 }
 
 init_dotfiles() {
+  rm "$HOME_G/.bash_profile"
+
   configs=$(realpath $(dirname $0))
+  cd $configs
+
   install_pkg stow
-  rm $HOME/.bash_profile
-  stow -v -t $HOME -d $configs home
-  stow -v -t /etc -d $configs etc
+  stow -t $HOME_G home > s1
+  stow -t /etc etc > s2
 }
 
 install_default_pkgs() {
@@ -83,7 +88,6 @@ install_suckless() {
 
 verify_root
 
-echo "initialize"
 init_default_folders
 init_pacman
 init_dotfiles
