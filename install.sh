@@ -10,8 +10,9 @@ verify_root() {
 }
 
 init_default_folders() {
-  mkdir -p $SOFTWARE_PATH
-  mkdir -p $HOME/.config
+  cd $HOME
+  mkdir -p software
+  mkdir -p .config
 }
 
 install_pkg() {
@@ -29,8 +30,8 @@ init_pacman() {
 init_dotfiles() {
   configs=$(realpath $(dirname $0))
   install_pkg stow
-  stow -t $HOME $configs/home
-  stow -t /etc $configs/etc
+  stow -v -t $HOME -d $configs home
+  stow -v -t /etc -d $configs etc
 }
 
 install_default_pkgs() {
@@ -73,7 +74,7 @@ install_suckless() {
   cd $SOFTWARE_PATH
   git clone -q https://git.suckless.org/$1/
   cd $1
-  make clean install
+  make -s clean install
 }
 
 
@@ -81,13 +82,16 @@ install_suckless() {
 
 verify_root
 
+echo "initialize"
 init_default_folders
 init_pacman
 init_dotfiles
 
+echo "\ndefault packages"
 install_default_pkgs
 install_keyd
 
+echo "\nsuckless"
 install_suckless_dependencies
 install_suckless dwm
 install_suckless st
