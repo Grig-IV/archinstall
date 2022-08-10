@@ -36,8 +36,8 @@ init_dotfiles() {
   cd $configs
 
   install_pkg stow
-  stow -t $HOME_G home > s1
-  stow -t /etc etc > s2
+  stow -vt $HOME_G home > s1
+  stow -vt /etc etc > s2
 }
 
 install_default_pkgs() {
