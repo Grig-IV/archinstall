@@ -32,26 +32,22 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<Leader>f', vim.lsp.buf.formatting, bufopts)
 end
 
-require('lspconfig').rust_analyzer.setup({
-    on_attach=on_attach,
-    cmd = { "rust-analyzer" },
-    filetypes = { "rust" },
-    settings = {
-        ["rust-analyzer"] = {
-            imports = {
-                granularity = {
-                    group = "module",
-                },
-                prefix = "self",
-            },
-            cargo = {
-                buildScripts = {
-                    enable = true,
-                },
-            },
-            procMacro = {
-                enable = true
-            },
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
         }
     }
+})
+
+require("mason-lspconfig").setup({
+    ensure_installed = { "sumneko_lua", "bashls", "rust_analyzer", "omnisharp" }
+})
+
+require("mason-lspconfig").setup_handlers({
+    function (server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup { on_attach=on_attach }
+    end,
 })

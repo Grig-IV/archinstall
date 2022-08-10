@@ -2,7 +2,7 @@ local opt = vim.opt
 
 opt.number = true
 opt.relativenumber = true
-opt.clipboard = unnamed
+opt.clipboard = "unnamed"
 opt.scrolloff = 5
 
 opt.ignorecase = true
