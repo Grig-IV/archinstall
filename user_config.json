@@ -1,0 +1,65 @@
+{
+    "additional-repositories": [],
+    "archinstall-language": "English",
+    "audio": "pipewire",
+    "bootloader": "grub-install",
+    "config_version": "2.5.0",
+    "debug": false,
+    "gfx_driver": "Nvidia (open kernel module for newer GPUs, Turing+)",
+    "harddrives": [ ],
+    "kernels": [
+        "linux"
+    ],
+    "keyboard-layout": "us",
+    "mirror-region": {
+        "Russia": {
+            "http://mirror.kamtv.ru/archlinux/$repo/os/$arch": true,
+            "http://mirror.lebedinets.ru/archlinux/$repo/os/$arch": true,
+            "http://mirror.nw-sys.ru/archlinux/$repo/os/$arch": true,
+            "http://mirror.surf/archlinux/$repo/os/$arch": true,
+            "http://mirror.truenetwork.ru/archlinux/$repo/os/$arch": true,
+            "http://mirror.yandex.ru/archlinux/$repo/os/$arch": true,
+            "http://mirrors.powernet.com.ru/archlinux/$repo/os/$arch": true,
+            "https://mirror.kamtv.ru/archlinux/$repo/os/$arch": true,
+            "https://mirror.lebedinets.ru/archlinux/$repo/os/$arch": true,
+            "https://mirror.nw-sys.ru/archlinux/$repo/os/$arch": true,
+            "https://mirror.surf/archlinux/$repo/os/$arch": true,
+            "https://mirror.truenetwork.ru/archlinux/$repo/os/$arch": true,
+            "https://mirror.yandex.ru/archlinux/$repo/os/$arch": true
+        }
+    },
+    "mount_point": null,
+    "ntp": true,
+    "packages": [
+        "wget",
+        "keepassxc",
+        "git",
+        "unzip",
+        "nodejs",
+        "libxinerama",
+        "chezmoi",
+        "webkit2gtk",
+        "discord",
+        "telegram-desktop",
+        "neovim",
+        "libxft",
+        "xclip",
+        "libx11",
+        "npm",
+        "rustup",
+        "firefox",
+        "python",
+        "curl"
+    ],
+    "plugin": null,
+    "profile": {
+        "path": "/usr/lib/python3.10/site-packages/archinstall/profiles/xorg.py"
+    },
+    "script": "guided",
+    "silent": false,
+    "swap": false,
+    "sys-encoding": "UTF-8",
+    "sys-language": "en_US",
+    "timezone": "Europe/Moscow",
+    "version": "2.5.0"
+}

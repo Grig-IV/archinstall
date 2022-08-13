@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 HOME_G="/home/grig"
 SOFTWARE_PATH="$HOME_G/software"
 
@@ -10,54 +12,6 @@ verify_root() {
   fi
 }
 
-init_default_folders() {
-  cd $HOME_G
-  mkdir -p software
-  mkdir -p .config
-}
-
-install_pkg() {
-  echo "installing $1"
-  pacman --noconfirm --needed -S "$1" >/dev/null 2>&1
-}
-
-init_pacman() {
-  pacman -Syu >/dev/null 2>&1
-  install_pkg git
-  install_pkg curl
-  install_pkg wget
-  install_pkg unzip
-}
-
-init_dotfiles() {
-  rm "$HOME_G/.bash_profile"
-
-  configs=$(realpath $(dirname $0))
-  cd $configs
-
-  install_pkg stow
-  stow -vt $HOME_G home > s1
-  stow -vt /etc etc > s2
-}
-
-install_default_pkgs() {
-  # PLs
-  install_pkg base-devel
-  install_pkg python
-  install_pkg npm
-  install_pkg node
-  install_pkg rustup
-
-  # neovim
-  install_pkg neovim
-  install_pkg xclip
-
-  # gui
-  install_pkg discord
-  install_pkg telegram-desktop
-  install_pkg firefox
-  install_pkg keepass
-}
 
 install_keyd() {
   cd $SOFTWARE_PATH
@@ -67,18 +21,9 @@ install_keyd() {
   sudo systemctl enable keyd && sudo systemctl start keyd
 }
 
-install_suckless_dependencies() {
-  install_pkg xorg-server
-  install_pkg xorg-xinit
-  install_pkg libx11 
-  install_pkg libxinerama 
-  install_pkg libxft 
-  install_pkg webkit2gtk
-}
-
 install_suckless() {
   cd $SOFTWARE_PATH
-  git clone -q https://git.suckless.org/$1/
+  git clone -q https://github.com/Grig-IV/$1
   cd $1
   make -s clean install
 }
@@ -88,16 +33,7 @@ install_suckless() {
 
 verify_root
 
-init_default_folders
-init_pacman
-init_dotfiles
-
-echo "\ndefault packages"
-install_default_pkgs
 install_keyd
-
-echo "\nsuckless"
-install_suckless_dependencies
-install_suckless dwm
 install_suckless st
 install_suckless dmenu
+install_suckless dwm
